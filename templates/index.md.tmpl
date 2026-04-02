@@ -1,0 +1,48 @@
+---
+page_title: "Provider: Terraconf"
+description: |-
+  The Terraconf provider is used to load data from configuration in various 
+  formats (currently only YAML) and make it available for interpretation in 
+  Terraform. The goal is to improve error reporting for the configuration.
+---
+
+# Terraconf Provider
+
+The Terraconf provider is used to load data from configuration in various 
+formats (currently only YAML) and make it available for interpretation in 
+Terraform. The goal is to improve error reporting for the configuration.
+
+## Example Usage
+
+In this example, we illustrate how one could use the provider to create
+Azure Resource Groups based on YAML configuration files. The provider will read
+the YAML files, validate them against a JSON schema, and then make the data
+available for use in Terraform resources. One of the input files contains a
+slight error to demonstrate the provider's error reporting capabilities.
+
+### Terraform
+
+{{tffile "examples/provider/provider.tf"}}
+
+### Input Files
+
+`./data/networking.yml`
+{{codefile "yaml" "examples/provider/data/networking.yml"}}
+
+`./data/website/frontend.yml`
+{{codefile "yaml" "examples/provider/data/website/frontend.yml"}}
+
+`./data/website/backend.yml`
+{{codefile "yaml" "examples/provider/data/website/backend.yml"}}
+
+`./schema/data.schema.json`
+{{codefile "json" "examples/provider/schema/data.schema.json"}}
+
+### Plan Results
+
+Running this example produces the following plan:
+{{codefile "txt" "examples/provider/plan_error.txt"}}
+
+## Schema
+
+All settings are configured on the data sources

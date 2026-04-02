@@ -1,0 +1,30 @@
+name: example
+enabled: true
+count: 3
+1: one
+false: foo
+items:
+  - id: foo
+    val: 1
+  - id: bar
+    val: 2
+primitives:
+  - 10
+  - foobar
+object:
+  - name: I am a complex object
+    region: europe
+    attributes: 
+      - name: awesome
+        value: true
+      # This is a test
+      - name: thetruth
+        value: 42
+      - name: nothing
+        value: null
+      - name: empty
+        value: ""
+    some: 1
+    other: 2
+    properties: 3
+inlineJsonForGoodMeasure: [{"foo": "bar", "baz": false}]

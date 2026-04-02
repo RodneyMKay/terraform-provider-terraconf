@@ -1,0 +1,94 @@
+- name: test successful validation
+  yamlPattern: testdata/schema-basic-types/data/valid.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: ""
+
+- name: test wrong array item type
+  yamlPattern: testdata/schema-basic-types/data/wrong-array-item-type.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: In testdata/schema-basic-types/data/wrong-array-item-type.yaml:15:12
+     14 │ - id: 1
+     15 │   val: false
+        │        ^ got boolean, want string
+     16 │ - id: 2
+
+- name: test wrong array oneOf none
+  yamlPattern: testdata/schema-basic-types/data/wrong-array-oneof-none.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: In testdata/schema-basic-types/data/wrong-array-oneof-none.yaml:23:13
+     22 │ oneof:
+     23 │   - type: true
+        │           ^ value must be 'string'
+     24 │     value: false
+
+- name: test wrong array oneOf partial
+  yamlPattern: testdata/schema-basic-types/data/wrong-array-oneof-partial.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: In testdata/schema-basic-types/data/wrong-array-oneof-partial.yaml:24:14
+     23 │ - type: string
+     24 │   value: 42
+        │          ^ got number, want string
+     25 │ - type: integer
+
+- name: test wrong array unique items
+  yamlPattern: testdata/schema-basic-types/data/wrong-array-unique-items.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: items at 1 and 3 are equal in testdata/schema-basic-types/data/wrong-array-unique-items.yaml:19:5
+     19 │ - 1
+     20 │ - 2
+     21 │ - 3
+     22 │ - 2
+
+- name: test wrong const int
+  yamlPattern: testdata/schema-basic-types/data/wrong-const-int.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: In testdata/schema-basic-types/data/wrong-const-int.yaml:3:8
+     2 │ string: foo
+     3 │ int: 44
+       │      ^ value must be 42
+     4 │ bool: true
+
+- name: test wrong number max
+  yamlPattern: testdata/schema-basic-types/data/wrong-number-max.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: In testdata/schema-basic-types/data/wrong-number-max.yaml:11:15
+     10 │   integer-min: 42
+     11 │   double-max: 31.4
+        │               ^ maximum: got 31.4, want 3.14
+     12 │ array-validation:
+
+- name: test wrong number min
+  yamlPattern: testdata/schema-basic-types/data/wrong-number-min.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: In testdata/schema-basic-types/data/wrong-number-min.yaml:10:16
+      9 │ numbers-validation:
+     10 │   integer-min: -42
+        │                ^ minimum: got -42, want 42
+     11 │   double-max: 3.14
+
+- name: test wrong string length
+  yamlPattern: testdata/schema-basic-types/data/wrong-string-length.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: In testdata/schema-basic-types/data/wrong-string-length.yaml:7:11
+     6 │ regex: foobar
+     7 │ length: foobarbaz
+       │         ^ maxLength: got 9, want 6
+     8 │ enum: foobar
+
+- name: test wrong string regex
+  yamlPattern: testdata/schema-basic-types/data/wrong-string-regex.yaml
+  schemaFile: testdata/schema-basic-types/schema.json
+  expectedErrorMessage: |
+    ERROR: In testdata/schema-basic-types/data/wrong-string-regex.yaml:6:10
+     5 │ string-validation:
+     6 │   regex: foobarbaz
+       │          ^ 'foobarbaz' does not match pattern '^fo+bar$'
+     7 │   length: foobar

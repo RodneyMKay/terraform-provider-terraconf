@@ -1,0 +1,28 @@
+consts:
+  string: foo
+  int: 42
+  bool: true
+string-validation:
+  regex: foobar
+  length: foobar
+  enum: foobar
+numbers-validation:
+  integer-min: 42
+  double-max: 3.14
+array-validation:
+  item-type:
+    - id: 1
+      val: foo
+    - id: 2
+      val: bar
+  unique-items:
+    - 1
+    - 2
+    - 3
+  oneof:
+    - type: string
+      value: foo
+    - type: integer
+      value: 42
+    - type: nullable
+      value: null

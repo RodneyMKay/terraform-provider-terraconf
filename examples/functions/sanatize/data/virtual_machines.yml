@@ -1,0 +1,5 @@
+- name: test
+  image: debian-12
+  sku: cx23
+  labels:
+    SOME_VARIABLE: test

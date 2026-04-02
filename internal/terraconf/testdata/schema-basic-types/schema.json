@@ -1,0 +1,168 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+        "consts",
+        "string-validation",
+        "numbers-validation",
+        "array-validation"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "consts": {
+            "type": "object",
+            "required": [
+                "string",
+                "int",
+                "bool"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "string": {
+                    "type": "string",
+                    "const": "foo"
+                },
+                "int": {
+                    "type": "integer",
+                    "const": 42
+                },
+                "bool": {
+                    "type": "boolean",
+                    "const": true
+                }
+            }
+        },
+        "string-validation": {
+            "type": "object",
+            "required": [
+                "regex",
+                "length",
+                "enum"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "regex": {
+                    "type": "string",
+                    "pattern": "^fo+bar$"
+                },
+                "length": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 6
+                },
+                "enum": {
+                    "type": "string",
+                    "enum": [
+                        "foo",
+                        "bar",
+                        "foobar"
+                    ]
+                }
+            }
+        },
+        "numbers-validation": {
+            "type": "object",
+            "required": [
+                "integer-min",
+                "double-max"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "integer-min": {
+                    "type": "integer",
+                    "minimum": 42
+                },
+                "double-max": {
+                    "type": [
+                        "number"
+                    ],
+                    "maximum": 3.14
+                }
+            }
+        },
+        "array-validation": {
+            "type": "object",
+            "required": [
+                "item-type",
+                "unique-items",
+                "oneof"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "item-type": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "id",
+                            "val"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "val": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "unique-items": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "uniqueItems": true
+                },
+                "oneof": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": [
+                            "type",
+                            "value"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "type": {},
+                            "value": {}
+                        },
+                        "oneOf": [
+                            {
+                                "properties": {
+                                    "type": {
+                                        "const": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "type": {
+                                        "const": "integer"
+                                    },
+                                    "value": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            {
+                                "properties": {
+                                    "type": {
+                                        "const": "nullable"
+                                    },
+                                    "value": {
+                                        "type": "null"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

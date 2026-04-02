@@ -1,0 +1,16 @@
+Planning failed. Terraform encountered an error while generating this plan.
+
+╷
+│ Error: YAML Schema Validation Error
+│ 
+│   with data.terraconf_yaml.config,
+│   on provider.tf line 4, in data "terraconf_yaml" "config":
+│    4: data "terraconf_yaml" "config" {
+│ 
+│ ERROR: In data/website/backend.yml:8:13
+│   7 │ - name: rg-website-database
+│   8 │   location: West Euope
+│     │             ^ value must be one of 'West Europe', 'Germany West Central'
+│   9 │ 
+│ 
+╵

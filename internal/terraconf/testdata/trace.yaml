@@ -1,0 +1,59 @@
+- name: long object with comment
+  file: testdata/tracing-complex/tracing.yaml
+  errorMessage: long object error
+  internalPointer: /object/0
+  expectedErrorMessage: |
+    ERROR: long object error in testdata/tracing-complex/tracing.yaml:15:5
+     15 │ - name: I am a complex object
+     16 │   region: europe
+     17 │   attributes: 
+     18 │     - name: awesome
+     19 │       value: true
+     20 │     # This is a test
+     21 │     - name: thetruth
+     22 │       value: 42
+     23 │     - name: nothing
+     24 │       value: null
+
+- name: count
+  file: testdata/tracing-complex/tracing.yaml
+  errorMessage: invalid count (must be at least 5)
+  internalPointer: /count
+  expectedErrorMessage: |
+    ERROR: In testdata/tracing-complex/tracing.yaml:3:8
+     2 │ enabled: true
+     3 │ count: 3
+       │        ^ invalid count (must be at least 5)
+     4 │ 1: one
+
+- name: item val
+  file: testdata/tracing-complex/tracing.yaml
+  errorMessage: threshold has to be a value between 0 and 1
+  internalPointer: /items/1/val
+  expectedErrorMessage: |
+    ERROR: In testdata/tracing-complex/tracing.yaml:10:10
+      9 │   - id: bar
+     10 │     val: 2
+        │          ^ threshold has to be a value between 0 and 1
+     11 │ primitives:
+
+- name: attribute name
+  file: testdata/tracing-complex/tracing.yaml
+  errorMessage: using a reserved name
+  internalPointer: /object/0/attributes/1/name
+  expectedErrorMessage: |
+    ERROR: In testdata/tracing-complex/tracing.yaml:21:15
+     20 │ # This is a test
+     21 │ - name: thetruth
+        │         ^ using a reserved name
+     22 │   value: 42
+
+- name: inline json attribute and end of file
+  file: testdata/tracing-complex/tracing.yaml
+  errorMessage: must be set to true if 'foo' is 'bar'
+  internalPointer: /inlineJsonForGoodMeasure/0/baz
+  expectedErrorMessage: |
+    ERROR: In testdata/tracing-complex/tracing.yaml:30:50
+     29 │     properties: 3
+     30 │ inlineJsonForGoodMeasure: [{"foo": "bar", "baz": false}]
+        │                                                  ^ must be set to true if 'foo' is 'bar'

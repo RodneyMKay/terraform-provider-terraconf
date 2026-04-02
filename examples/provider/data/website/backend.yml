@@ -1,0 +1,8 @@
+- name: rg-website-order-service
+  location: West Europe
+
+- name: rg-website-customer-service
+  location: West Europe
+
+- name: rg-website-database
+  location: West Euope

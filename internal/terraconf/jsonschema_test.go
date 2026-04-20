@@ -9,7 +9,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// TestScenario represents a test case from the schema.yaml file
+// TestScenario represents a test case from the schema.yaml file.
 type TestScenario struct {
 	Name                 string `yaml:"name"`
 	YamlPattern          string `yaml:"yamlPattern"`
@@ -57,7 +57,10 @@ func TestSchemaValidation(t *testing.T) {
 				}
 
 				// Add annotations for tracing AFTER schema validation
-				AddAnnotations(yamlData, yamlFile)
+				err = AddAnnotations(yamlData, yamlFile)
+				if err != nil {
+					t.Fatalf("AddAnnotations failed: %v", err)
+				}
 
 				// Verify test input
 				hasErrors := len(schemaErrors) > 0

@@ -81,7 +81,7 @@ func escapeJSONPointer(s string) string {
 	return s
 }
 
-// removes the escaping from a JSON Pointer token
+// removes the escaping from a JSON Pointer token.
 func unescapeJSONPointer(s string) string {
 	s = strings.ReplaceAll(s, "~1", "/")
 	s = strings.ReplaceAll(s, "~0", "~")

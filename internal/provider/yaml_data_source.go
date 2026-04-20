@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/RodneyMKay/terraform-provider-terraconf/internal/terraconf"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
-	"github.com/RodneyMKay/terraform-provider-terraconf/internal/terraconf"
 )
 
 var _ datasource.DataSource = &YamlDataSource{}
@@ -50,7 +50,7 @@ func (d *YamlDataSource) Schema(ctx context.Context, req datasource.SchemaReques
 				Optional:            true,
 			},
 			"add_annotations": schema.BoolAttribute{
-				MarkdownDescription: "If true (default), a special _terraconf annotation is added to every object in the YAML structure, whcih encodes the location of that object inside the configuration. This can be used in a custom function to display a rich error message, which points to the exact location of the error in the YAML file.",
+				MarkdownDescription: "If true (default), a special _terraconf annotation is added to every object in the YAML structure, which encodes the location of that object inside the configuration. This can be used in a custom function to display a rich error message, which points to the exact location of the error in the YAML file.",
 				Optional:            true,
 			},
 			"output": schema.DynamicAttribute{
@@ -95,7 +95,7 @@ func (d *YamlDataSource) Read(ctx context.Context, req datasource.ReadRequest, r
 
 	for _, file := range files {
 		tflog.Trace(ctx, fmt.Sprintf("Reading YAML file: %s", file))
-		
+
 		// Load YAML without annotations first for schema validation
 		value, err := terraconf.LoadYAML(file)
 		if err != nil {

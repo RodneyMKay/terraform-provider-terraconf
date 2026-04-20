@@ -170,7 +170,7 @@ func computeErrorInfo(node *yaml.Node, nextNode *yaml.Node, filename string, err
 		// intelligent way, so that all the keys of for example, an object,
 		// are included in the traceback, since one of them might be the
 		// source of the error.
-		endLine := startLine + 10 
+		endLine := startLine + 10
 
 		if nextNode != nil && nextNode.Line > startLine && nextNode.Line < endLine {
 			endLine = nextNode.Line
@@ -237,14 +237,14 @@ func renderError(info errorInfo, fileContent string) string {
 	return sb.String()
 }
 
-// clamp limits the provided value to be within min and max (inclusive)
-func clamp(value int, min int, max int) int {
-	if value < min {
-		return min
+// clamp limits the provided value to be within min and max (inclusive).
+func clamp(value int, minValue int, maxValue int) int {
+	if value < minValue {
+		return minValue
 	}
 
-	if value > max {
-		return max
+	if value > maxValue {
+		return maxValue
 	}
 
 	return value

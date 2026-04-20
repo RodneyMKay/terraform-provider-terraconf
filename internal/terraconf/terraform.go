@@ -11,7 +11,7 @@ import (
 
 // In the provider internal code, we use a representation that is closer to
 // json/yaml style values (map[string]any, []any, boolean, int64, float64
-// and string), which is more convenient to work with in Go. However, 
+// and string), which is more convenient to work with in Go. However,
 // to pass them to terraform, we need to convert them to/from terraform values.
 // The functions in this file facilitate this conversion.
 
@@ -61,14 +61,14 @@ func GoValueToTerraformAttr(ctx context.Context, val any) (attr.Value, error) {
 			elements[i] = attrVal
 			elemTypes[i] = attrVal.Type(ctx)
 		}
-		
+
 		tuple, diags := types.TupleValue(elemTypes, elements)
 		if diags.HasError() {
 			return nil, fmt.Errorf("error creating tuple: %v", diags)
 		}
 		return tuple, nil
 	case map[string]any:
-		// JSON objects can have mixed types, so we use an Object instead of 
+		// JSON objects can have mixed types, so we use an Object instead of
 		// a Map
 		attrTypes := make(map[string]attr.Type)
 		attrValues := make(map[string]attr.Value)
@@ -80,7 +80,7 @@ func GoValueToTerraformAttr(ctx context.Context, val any) (attr.Value, error) {
 			attrTypes[key] = attrVal.Type(ctx)
 			attrValues[key] = attrVal
 		}
-		
+
 		obj, diags := types.ObjectValue(attrTypes, attrValues)
 		if diags.HasError() {
 			return nil, fmt.Errorf("error creating object: %v", diags)

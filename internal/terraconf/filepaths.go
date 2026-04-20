@@ -40,6 +40,6 @@ func FindGlobFiles(pattern string) ([]string, error) {
 	if err != nil {
 		return nil, fmt.Errorf("globbing pattern %s: %w", pattern, err)
 	}
-	
+
 	return matches, nil
 }

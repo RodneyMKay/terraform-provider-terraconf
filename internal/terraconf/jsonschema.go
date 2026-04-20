@@ -7,7 +7,7 @@ import (
 	"github.com/santhosh-tekuri/jsonschema/v6"
 )
 
-// Represents an error found when validating a YAML document against a JSON 
+// Represents an error found when validating a YAML document against a JSON
 // schema. Message is the message that we want to display to the user and
 // Pointer points to the location of the error.
 type SchemaError struct {
@@ -60,7 +60,7 @@ func CheckWithSchema(value any, schemaPath string) ([]SchemaError, error) {
 func findError(unit jsonschema.OutputUnit) (SchemaError, error) {
 	if unit.Error != nil {
 		return SchemaError{
-			Message: unit.Error.String(), 
+			Message: unit.Error.String(),
 			Pointer: NewJsonPointer(unit.InstanceLocation),
 		}, nil
 	}

@@ -32,7 +32,7 @@ func TestLoadAndAnnotateYAML(t *testing.T) {
 
 func TestLoadAddRemoveAnnotations(t *testing.T) {
 	path := filepath.Join("testdata", "tracing-complex", "tracing.yaml")
-	
+
 	// Load, annotate, then remove annotations
 	value, err := LoadAndAnnotateYAML(path)
 	if err != nil {
@@ -46,7 +46,7 @@ func TestLoadAddRemoveAnnotations(t *testing.T) {
 	if err != nil {
 		t.Fatalf("LoadYAML for expected: %v", err)
 	}
-	
+
 	// Compare both
 	if err := compareValues(expected, value, NewJsonPointerRoot()); err != nil {
 		t.Fatalf("mismatch after removing annotations: %v", err)

@@ -3,9 +3,9 @@ package provider
 import (
 	"context"
 
+	"github.com/RodneyMKay/terraform-provider-terraconf/internal/terraconf"
 	"github.com/hashicorp/terraform-plugin-framework/function"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/RodneyMKay/terraform-provider-terraconf/internal/terraconf"
 )
 
 var (

@@ -75,7 +75,7 @@ func FindAnnotation(value any) (Annotation, error) {
 	return recurseIntoList(value)
 }
 
-// Recursively searches for an object in the value tree. If a list is 
+// Recursively searches for an object in the value tree. If a list is
 // encountered, this method recursively searches for an object inside that
 // list. If an object is found, the _terraconf annotation is decoded and
 // returned. If _terraconf is not found or cannot be read, an error is returned.
@@ -87,8 +87,12 @@ func recurseIntoList(value any) (Annotation, error) {
 		if !ok {
 			return Annotation{}, fmt.Errorf("annotation not present in first encountered object")
 		}
+		s, ok := annotation.(string)
+		if !ok {
+			return Annotation{}, fmt.Errorf("annotation value is not a string")
+		}
 
-		return decodeAnnotation(annotation.(string))
+		return decodeAnnotation(s)
 	case []any:
 		for _, v := range value {
 			annotation, err := recurseIntoList(v)

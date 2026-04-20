@@ -215,22 +215,22 @@ func renderError(info errorInfo, fileContent string) string {
 	var sb strings.Builder
 
 	if info.ShowHerePointer {
-		sb.WriteString(fmt.Sprintf("ERROR: In %s:%d:%d\n", info.Filename, info.HighlightedLine, info.HighlightedColumn))
+		fmt.Fprintf(&sb, "ERROR: In %s:%d:%d\n", info.Filename, info.HighlightedLine, info.HighlightedColumn)
 	} else {
-		sb.WriteString(fmt.Sprintf("ERROR: %s in %s:%d:%d\n", info.ErrorMessage, info.Filename, info.HighlightedLine, info.HighlightedColumn))
+		fmt.Fprintf(&sb, "ERROR: %s in %s:%d:%d\n", info.ErrorMessage, info.Filename, info.HighlightedLine, info.HighlightedColumn)
 	}
 
 	for i, line := range errorLines {
 		lineNum := startLine + i
 
 		if len(line) >= commonIndent {
-			sb.WriteString(fmt.Sprintf("%*d │ %s\n", lineNumberWidth, lineNum, line[commonIndent:]))
+			fmt.Fprintf(&sb, "%*d │ %s\n", lineNumberWidth, lineNum, line[commonIndent:])
 		} else {
-			sb.WriteString(fmt.Sprintf("%*d │\n", lineNumberWidth, lineNum))
+			fmt.Fprintf(&sb, "%*d │\n", lineNumberWidth, lineNum)
 		}
 
 		if info.ShowHerePointer && lineNum == highlitedLine {
-			sb.WriteString(fmt.Sprintf("%*s │ %*s^ %s\n", lineNumberWidth, " ", highlitedIndent, " ", info.ErrorMessage))
+			fmt.Fprintf(&sb, "%*s │ %*s^ %s\n", lineNumberWidth, " ", highlitedIndent, " ", info.ErrorMessage)
 		}
 	}
 
